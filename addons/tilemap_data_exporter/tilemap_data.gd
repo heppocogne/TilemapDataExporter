@@ -47,8 +47,9 @@ func get_size()->Vector2:
 	return get_rect().size
 
 
-func place_on_tilemap(target:TileMap,origin:Vector2=Vector2.ZERO,override:bool=false):
+func place_on_tilemap(target:TileMap,origin:Vector2=Vector2.ZERO,overwrite:bool=false,overwritable_tiles:Array=[]):
 	for id in _map:
 		for v in _map[id]:
-			if override or target.get_cellv(v+origin)==-1:
+			var curretnt_cell:=target.get_cellv(v+origin)
+			if overwrite or curretnt_cell==-1 or overwritable_tiles.has(curretnt_cell):
 				target.set_cellv(v+origin,id)
